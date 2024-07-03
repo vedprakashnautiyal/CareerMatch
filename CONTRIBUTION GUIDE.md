@@ -4,31 +4,31 @@ Do you think there is something better that this project can offer and you can a
 <br>
 To start contributing, follow the guidelines given below: 
 
-**1.**  Fork [this](https://github.com/vedprakashnautiyal/MarkdownBlogEditor) repository.
+**1.**  Fork [this](https://github.com/vedprakashnautiyal/CareerMatch) repository.
 
 **2.**  Clone your forked copy of the project.
 
 ```
-git clone https://github.com/<your_user_name>/MarkdownBlogEditor.git
+git clone https://github.com/<your_user_name>/CareerMatch.git
 ```
 
 **3.** Navigate to the project directory in your local system.
 
 ```
-cd MarkdownBlogEditor
+cd CareerMatch
 ```
 
 **4.1** Add a reference (remote) to the original repository.
 
 ```
 git remote add upstream 
-https://github.com/vedprakashnautiyal/MarkdownBlogEditor.git 
+https://github.com/vedprakashnautiyal/CareerMatch.git 
 
 ```
 **4.2** Add a reference (remote) to your forked repository
 ```
 git remote add origin
-https://github.com/<your_user_name>/MarkdownBlogEditor.git
+https://github.com/<your_user_name>/CareerMatch.git
 ```
 
 **5.** Check the remotes for this repository.
