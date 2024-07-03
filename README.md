@@ -1,2 +1,2 @@
-# JobFit
-LLM app that lets you converse with the pdfs and images you wants.
+# Career Match
+A Generative AI App that lets you compare your resume with the given job description
