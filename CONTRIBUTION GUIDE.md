@@ -66,7 +66,7 @@ git commit -m "suitable message"
 **11.** Push the committed changes in your feature branch to your remote repo.
 
 ```
-git push -u origin <your_branch_name>
+git push origin <your_branch_name>
 ```
 
 **12.** To create a pull request, click on `Compare And Pull Requests`.
