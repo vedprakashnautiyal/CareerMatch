@@ -9,8 +9,8 @@ import prompts
 import style
 
 import google.generativeai as genai
-# genai.configure(api_key=st.secrets["KEY"]) #Streamlit Server
-genai.configure(api_key=os.getenv("KEY")) #Local Server
+genai.configure(api_key=st.secrets["KEY"]) #Streamlit Server
+# genai.configure(api_key=os.getenv("KEY")) #Local Server
 
 # Streamlit App
 st.set_page_config(page_title="Career Match", page_icon=":briefcase:", layout="wide")
