@@ -43,7 +43,7 @@ def get_rag_response(template, pdf_content, input_text):
     except:
         print("Creating new vector store")
         vectorstore = Chroma(
-            collection_name=collection_name, 
+            collection_name="Store", 
             embedding_function=GoogleGenerativeAIEmbeddings(model="models/embedding-001",google_api_key=os.getenv("KEY")), 
             persist_directory="storage/deploy/chroma-db"
         )
