@@ -4,7 +4,7 @@ sys.modules['sqlite3'] = sys.modules.pop('pysqlite3')
 from dotenv import load_dotenv
 import streamlit as st 
 from util import input_pdf_setup, get_rag_response
-import prompts
+import prompt
 import style
 # Load environment variables
 load_dotenv()
