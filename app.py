@@ -3,7 +3,9 @@ import streamlit as st
 from util import input_pdf_setup, get_rag_response
 import prompts
 import style
-
+__import__('pysqlite3')
+import sys
+sys.modules['sqlite3'] = sys.modules.pop('pysqlite3')
 # Load environment variables
 load_dotenv()
 
