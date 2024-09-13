@@ -34,10 +34,10 @@ if resume_file is not None:
 
 # Layout for buttons
 buttons = {
-    "About the Resume": prompts.template1,
-    "How Can I Improve": prompts.template2,
-    "Missing Keywords": prompts.template3,
-    "Percentage Matched": prompts.template4
+    "About the Resume": prompt.template1,
+    "How Can I Improve": prompt.template2,
+    "Missing Keywords": prompt.template3,
+    "Percentage Matched": prompt.template4
 }
 
 cols = st.columns(len(buttons))
