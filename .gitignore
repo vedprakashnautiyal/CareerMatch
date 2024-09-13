@@ -1,4 +1,5 @@
 test/
+.streamlit
 .DS_Store
 __pycache__
 .env

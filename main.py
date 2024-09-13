@@ -9,7 +9,8 @@ import prompts
 import style
 
 import google.generativeai as genai
-genai.configure(api_key=st.secrets["KEY"])
+genai.configure(api_key=st.secrets["KEY"]) #Streamlit Server
+# genai.configure(api_key=os.getenv("KEY")) #Local Server
 
 # Streamlit App
 st.set_page_config(page_title="Career Match", page_icon=":briefcase:", layout="wide")
@@ -29,6 +30,7 @@ pdf_content = ""
 
 if uploaded_file is not None:
     st.success("PDF Uploaded Successfully")
+    pdf_content = input_pdf_setup(uploaded_file)
 
 col1, col2, col3, col4 = st.columns(4)
 
@@ -41,17 +43,16 @@ with col3:
 with col4:
     submit4 = st.button("Percentage Matched")
 
-input_promp = st.text_input("Additional Queries")
+input_prompt = st.text_input("Additional Queries")
 
 submit5 = st.button("Submit")
 
 def handle_submission(prompt):
-    if uploaded_file is not None:
-        pdf_content = input_pdf_setup(uploaded_file)
+    if pdf_content:
         response = get_gemini_response(prompt, pdf_content, input_text)
         st.write(response)
     else:
-        st.warning("PDF Not Uploaded")
+        st.warning("PDF Not Uploaded or Content Not Extracted")
 
 if submit1:
     handle_submission(prompts.input_prompt1)
@@ -62,4 +63,4 @@ elif submit3:
 elif submit4:
     handle_submission(prompts.input_prompt4)
 elif submit5:
-    handle_submission(input_promp)
+    handle_submission(input_prompt)
