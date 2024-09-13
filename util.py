@@ -15,7 +15,8 @@ from langchain.schema.runnable import RunnablePassthrough, RunnableLambda
 
 
 # Configure Gemini model
-genai.configure(api_key=os.getenv("KEY"))
+genai.configure(api_key=st.secrets["KEY"]) #Streamlit Server
+# genai.configure(api_key=os.getenv("KEY")) #Local Server
 
 # RAG setup
 def get_rag_response(template, pdf_content, input_text):
