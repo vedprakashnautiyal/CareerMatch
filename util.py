@@ -1,12 +1,13 @@
 import fitz
 import os
-import chromadb
-import chromadb.config
 import streamlit as st 
 import google.generativeai as genai
 from langchain_core.prompts import PromptTemplate
 from langchain.docstore.document import Document
 from langchain_chroma import Chroma
+from langchain_text_splitters import RecursiveCharacterTextSplitter
+from langchain.retrievers import ParentDocumentRetriever
+from langchain.storage import InMemoryStore
 from langchain.schema import StrOutputParser
 from langchain_google_genai import ChatGoogleGenerativeAI, GoogleGenerativeAIEmbeddings
 from langchain_community.document_loaders import WebBaseLoader
@@ -29,18 +30,65 @@ def get_rag_response(template, pdf_content, input_text):
         # It's a string (job description)
         st.info("Job description text detected.")
         docs = [Document(page_content=input_text)]
-    # Save to disk
-    vectorstore = Chroma.from_documents(
-        documents=docs ,                 # Data
-        embedding=GoogleGenerativeAIEmbeddings(model="models/embedding-001",google_api_key=os.getenv("KEY")),    # Embedding model
-        persist_directory="./chroma_db" # Directory to save data
+
+    parent_splitter = RecursiveCharacterTextSplitter(chunk_size=2000)
+    child_splitter = RecursiveCharacterTextSplitter(chunk_size=400)
+
+    vectorstore = None
+    try:
+        vectorstore = Chroma(
+            persist_directory="storage/deploy/chroma-db", 
+            embedding_function=GoogleGenerativeAIEmbeddings(model="models/embedding-001",google_api_key=os.getenv("KEY")))    
+        print("Loaded existing vector store")
+    except:
+        print("Creating new vector store")
+        vectorstore = Chroma(
+            collection_name=collection_name, 
+            embedding_function=GoogleGenerativeAIEmbeddings(model="models/embedding-001",google_api_key=os.getenv("KEY")), 
+            persist_directory="storage/deploy/chroma-db"
         )
-    # Load from disk
-    vectorstore_disk = Chroma(
-        persist_directory="./chroma_db", # Directory of db
-        embedding_function=GoogleGenerativeAIEmbeddings(model="models/embedding-001",google_api_key=os.getenv("KEY"))
+        
+    store = InMemoryStore()
+    
+    retriever = ParentDocumentRetriever(
+        vectorstore=vectorstore,
+        docstore=store,
+        child_splitter=child_splitter,
+        parent_splitter=parent_splitter
     )
-    retriever = vectorstore_disk.as_retriever(search_kwargs={"k": 1})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    # # Save to disk
+    # vectorstore = Chroma.from_documents(
+    #     documents=docs ,                 # Data
+    #     embedding=GoogleGenerativeAIEmbeddings(model="models/embedding-001",google_api_key=os.getenv("KEY")),    # Embedding model
+    #     persist_directory="./chroma_db" # Directory to save data
+    #     )
+    # # Load from disk
+    # vectorstore_disk = Chroma(
+    #     persist_directory="./chroma_db", # Directory of db
+    #     embedding_function=GoogleGenerativeAIEmbeddings(model="models/embedding-001",google_api_key=os.getenv("KEY"))
+    # )
+    # retriever = vectorstore_disk.as_retriever(search_kwargs={"k": 1})
     # Define the LLM model
     llm = ChatGoogleGenerativeAI(
         model="gemini-1.5-flash",
