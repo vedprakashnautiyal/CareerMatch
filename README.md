@@ -24,8 +24,9 @@ $ cd CareerMatch
 ```
 - Create and activate a virtual python environment (I used conda)
 ```
-$ conda create -p venv
-$ conda activate venv
+$ python -m venv myenv
+$ source myenv/bin/activate (For Mac)
+$ myenv/bin/activate (For Win)
 ```
 - Install Dependencies
 ```
