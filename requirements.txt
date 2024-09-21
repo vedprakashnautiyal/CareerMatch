@@ -8,4 +8,3 @@ chromadb
 langchain-community 
 langchain-core
 langchain-chroma
-pysqlite3
